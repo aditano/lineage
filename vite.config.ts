@@ -124,6 +124,7 @@ function authPopupPlugin(): Plugin {
 }
 
 const pages = process.env.GITHUB_PAGES === "1";
+const pagesBase = process.env.PAGES_BASE || (pages ? "/lineage/" : "/");
 
 // `0.0.0.0:8080` is the live-preview contract — don't change host/port.
 // Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it
@@ -131,7 +132,7 @@ const pages = process.env.GITHUB_PAGES === "1";
 // The dev server starts once `src/router.tsx` and `src/routes/` exist — see
 // AGENTS.md § "First scaffold".
 export default defineConfig(({ command }) => ({
-  base: pages ? "/lineage/" : "/",
+  base: pages ? pagesBase : "/",
   server: {
     host: "0.0.0.0",
     port: 8080,
