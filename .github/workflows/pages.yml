@@ -1,0 +1,77 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:pages
+        env:
+          GITHUB_PAGES: "1"
+      - name: Prepare Pages site
+        run: |
+          set -euo pipefail
+          OUT=""
+          for candidate in \
+            dist/client \
+            dist \
+            .output/public \
+            .vercel/output/static
+          do
+            if [ -d "$candidate" ]; then
+              OUT="$candidate"
+              break
+            fi
+          done
+          if [ -z "$OUT" ]; then
+            echo "No static output directory found"
+            find . -name "index.html" -not -path "./node_modules/*" | head
+            exit 1
+          fi
+          echo "Using output: $OUT"
+          mkdir -p site
+          cp -a "$OUT"/. site/
+          if [ ! -f site/index.html ]; then
+            if [ -f site/_shell.html ]; then
+              cp site/_shell.html site/index.html
+            else
+              echo "index.html missing in $OUT"
+              ls -la "$OUT"
+              exit 1
+            fi
+          fi
+          cp site/index.html site/404.html
+          ls -la site | head
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
