@@ -15,4 +15,5 @@ npm run dev
 
 ## GitHub Pages
 
-The live site is the user page at [aditano.github.io](https://aditano.github.io/). Pushes to `main` also try to publish the project page at `/lineage/` via Actions.
+Hosted at [aditano.github.io](https://aditano.github.io/) from the [`aditano.github.io`](https://github.com/aditano/aditano.github.io) repo.
+
