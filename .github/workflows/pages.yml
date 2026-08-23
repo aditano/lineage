@@ -27,8 +27,10 @@ jobs:
           GITHUB_PAGES: "1"
           PAGES_BASE: /lineage/
           VITE_AUTH_ENABLED: "false"
+      - run: ls -la dist dist/client dist/client/lineage pages-dist || true
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: pages-dist
+          publish_dir: dist/client
           force_orphan: true
+
