@@ -1,6 +1,6 @@
 export type Sample = {
   id: string;
-  origin: "human" | "claude" | "gpt" | "gemini" | "grok";
+  origin: "human" | "claude" | "gpt" | "gemini" | "grok" | "deepseek";
   title: string;
   text: string;
 };
@@ -65,6 +65,33 @@ To summarize: treat the offsite like a working session with better snacks, not a
 
 Honestly the useful version is ugly and short. One question on a whiteboard. Two hours. Whoever owns the P&L talks last. Then you go eat something that isn't a panini platter and you don't do a "fun activity" involving trust falls or a murder mystery.
 
-Yeah, people will complain it wasn't "inspiring." That's fine. Inspiration is what you invent in the recap email so nobody feels like they wasted a day. The boring truth is alignment is just agreeing, out loud, what you are not doing this quarter.`,
+Yeah, people will complain it wasn't "inspiring." That's fine. Inspiration is what you invent in the recap email so nobody feels like they wasted a day. The boring truth is alignment is just agreeing, out loud, what you are not doing this quarter. I'm not going to pretend otherwise.`,
+  },
+  {
+    id: "reasoning",
+    origin: "gpt",
+    title: "o-series",
+    text: `Let me work through the fare change before taking a side.
+
+Assumptions:
+- The weekday cap stays put.
+- School trips are already exempt.
+
+Working backwards from the deficit, the key insight is that the shortfall sits in empty evening runs, not in the peak fare. Therefore, we should lengthen headways after 8pm rather than raise the cap. I'll reason from the ridership sheet once it is attached. The shape of the answer should not move if those empty miles are real.`,
+  },
+  {
+    id: "deepseek",
+    origin: "deepseek",
+    title: "DeepSeek",
+    text: `Here are some key points to consider before the ledger move.
+
+1. Freeze writes before the copy starts.
+2. Keep the previous build installed.
+3. Compare row counts before opening reads.
+4. Watch the error budget for a full day.
+5. Name one owner for the rollback.
+6. Store the clock time next to the batch.
+
+Additionally, consider the audit columns. The following are some fields that must stay immutable: account, amount, and the posted time. In this context, it is a mistake to repair a row in place and call that a fix.`,
   },
 ];

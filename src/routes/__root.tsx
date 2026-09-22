@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Paste writing. Lineage estimates whether it is machine-made and names the closest model family — Claude, ChatGPT, Gemini, or Grok.",
+          "Paste writing. Lineage estimates whether it is machine-made, names the closest model family, and names a generation or exact model only when the evidence supports it.",
       },
       { name: "apple-mobile-web-app-title", content: APP_NAME },
       { name: "theme-color", content: "#0c0c0b" },
