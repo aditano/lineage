@@ -77,8 +77,8 @@ function Home() {
             Where did this writing come from?
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-sm leading-relaxed text-muted md:text-base">
-            Paste a paragraph. Lineage measures cadence and stock phrasing, then names the
-            closest house style — Claude, ChatGPT, Gemini, or Grok — and says when it cannot.
+            Paste a paragraph. Lineage names the house style, then a generation — GPT-4, Claude 3,
+            an o-series reasoner — or the exact model, when the writing identifies one.
           </p>
         </header>
 
@@ -99,7 +99,10 @@ function Home() {
           <div className="lg:col-span-7">
             <div className="rounded-2xl bg-surface p-5 shadow-[var(--shadow-border)] md:p-6">
               <div className="mb-3 flex items-center justify-between gap-3">
-                <label htmlFor="source" className="text-xs font-medium tracking-wide text-subtle uppercase">
+                <label
+                  htmlFor="source"
+                  className="text-xs font-medium tracking-wide text-subtle uppercase"
+                >
                   Source
                 </label>
                 {text ? (
@@ -162,8 +165,8 @@ function Home() {
               </div>
             ) : (
               <p className="mt-5 px-1 text-sm text-subtle">
-                Signals appear after a sentence or two. Full read asks a second opinion and
-                writes a short briefing.
+                Signals appear after a sentence or two. Full read asks a second opinion and writes a
+                short briefing.
               </p>
             )}
           </div>
@@ -172,7 +175,11 @@ function Home() {
             {report && (committed || wordCount >= 20) ? (
               <div className={cn("stagger-in space-y-4", busy && "opacity-80")}>
                 <VerdictCard report={report} />
-                <FamilyPanel family={report.family} scores={report.familyScores} />
+                <FamilyPanel
+                  family={report.family}
+                  scores={report.familyScores}
+                  modelCall={report.modelCall}
+                />
                 <AnnotatedText text={text} tells={report.tells} />
                 {usedModel === false && committed ? (
                   <p className="px-1 text-xs text-subtle">
@@ -189,12 +196,14 @@ function Home() {
               </div>
             ) : (
               <aside className="rounded-xl bg-surface p-5 text-sm leading-relaxed text-muted shadow-[var(--shadow-border)] md:p-6">
-                <p className="font-display text-lg italic text-fg">What you get that the cheap sites skip</p>
+                <p className="font-display text-lg italic text-fg">
+                  What you get that the cheap sites skip
+                </p>
                 <ul className="mt-4 space-y-3">
-                  <li>A family guess — not just “87% AI.”</li>
+                  <li>A house style, and a model only when the cues separate.</li>
+                  <li>An exact name only when the text names a version.</li>
                   <li>The phrases that triggered it, marked in the text.</li>
-                  <li>An honest confidence band. Short samples stay humble.</li>
-                  <li>No 99.9. Formal humans and edited drafts look alike, and we say so.</li>
+                  <li>No 99.9. One borrowed word does not make a house style.</li>
                 </ul>
               </aside>
             )}

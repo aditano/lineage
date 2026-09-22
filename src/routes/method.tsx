@@ -11,19 +11,19 @@ function Method() {
           How Lineage actually reads
         </h1>
         <p className="mt-5 text-base leading-relaxed text-muted">
-          Most detectors sell a single percentage and hide the work. Lineage is a forensic
-          desk: local linguistic signals first, a model briefing second, and a house-style
-          guess when the evidence is there.
+          Most detectors sell a single percentage and hide the work. Lineage is a forensic desk:
+          local linguistic signals first, a model briefing second, and a name — family, generation,
+          or exact — only as far as the evidence reaches.
         </p>
 
         <section className="mt-12">
           <h2 className="font-display text-2xl italic tracking-tight text-fg">Two passes</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Typing is enough for the first pass. Burstiness, stock phrases, outline bones,
-            register, and lived detail update on the page.{" "}
-            <span className="text-fg">Run full read</span> sends the text to a second opinion
-            (Grok) with those stats as a prior. The two scores are blended. If the briefing
-            is down, you still have the local read — not a spinner and a shrug.
+            Typing is enough for the first pass. Burstiness, stock phrases, outline bones, register,
+            and lived detail update on the page. <span className="text-fg">Run full read</span>{" "}
+            sends the text to a second opinion (Grok) with those stats as a prior. The two scores
+            are blended. If the briefing is down, you still have the local read — not a spinner and
+            a shrug.
           </p>
         </section>
 
@@ -58,32 +58,90 @@ function Method() {
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl italic tracking-tight text-fg">House styles</h2>
+          <h2 className="font-display text-2xl italic tracking-tight text-fg">
+            How far the name goes
+          </h2>
           <dl className="mt-4 space-y-5">
             <Pair
-              term="ChatGPT"
-              def="Polite scaffolding. Brochure verbs. Tidy lists of three. Closers that offer more help."
+              term="Exact"
+              def="Only when the writing identifies a version in its own voice: “I am GPT-4o, a language model trained by OpenAI,” “Claude 3.5 Sonnet,” “Grok 4.7.” A sticker, a quote, or “she announced” does not count. “I’m ChatGPT” names the product, not a checkpoint."
             />
             <Pair
-              term="Claude"
-              def="Em-dashes, hypotaxis, collaborative hedging, and a habit of naming the tension before the answer."
+              term="Generation"
+              def="A style band inside the house: GPT-3.5, GPT-4, GPT-4o, the o-series, Claude 3, Claude 4, Gemini 1.5, Gemini 2.5, Grok 3, Grok 4, DeepSeek V3, DeepSeek-R1, Llama 3. It takes at least two independent cues, or one signature as strong as a reasoning-trace tag. A later checkpoint that shares the voice — GPT-5.6, Claude Opus 5 — is exact only when named."
             />
             <Pair
-              term="Gemini"
-              def="Breakdowns, takeaways, restated questions, and a tour-guide “let’s explore.”"
+              term="Family"
+              def="The house is clear and the generation is not. ChatGPT, Claude, Gemini, Grok, DeepSeek, Llama."
             />
             <Pair
-              term="Grok"
-              def="Punchy, sided, contracted. Will call the offsite expensive group therapy."
+              term="Unresolved"
+              def="Short text, a single borrowed word, or two houses at once. One “delve” in a diary stays a diary."
             />
           </dl>
         </section>
 
         <section className="mt-10">
-          <h2 className="font-display text-2xl italic tracking-tight text-fg">What we will not claim</h2>
+          <h2 className="font-display text-2xl italic tracking-tight text-fg">House styles</h2>
+          <dl className="mt-4 space-y-5">
+            <Pair
+              term="ChatGPT"
+              def="Early ChatGPT still says certainly and hopes this helps. GPT-4 writes brochure. Later ChatGPT gets shorter: short version, quick take, want me to. The o-series shows its work."
+            />
+            <Pair
+              term="Claude"
+              def="Claude 3 hedges, names the tension, and reaches for the em dash. Claude 4 is more direct: I’ll be direct, worth separating, skip the preamble."
+            />
+            <Pair
+              term="Gemini"
+              def="Gemini 1.5 gives you the breakdown and the takeaways. Gemini 2.5 leans on at-a-glance lines and inline bold."
+            />
+            <Pair
+              term="Grok"
+              def="Grok 3 will say look, here’s the thing, hot take. Grok 4 still picks a side, then talks about the actual constraint and what it would ship."
+            />
+            <Pair
+              term="DeepSeek"
+              def="V3 inventories key points. R1 leaves the reasoning trace in the page, including a think tag."
+            />
+            <Pair
+              term="Llama"
+              def="Opens with Sure and closes with Remember. Open-model helpfulness, without the brochure."
+            />
+          </dl>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl italic tracking-tight text-fg">
+            What the tests lock
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            <span className="text-fg">npm test</span> runs the desk corpus and the policy
+            invariants. On the clear set the family has to be right. On the model set the generation
+            has to be the one we named, with no exact claim. Exact cases have to match the version
+            string. Traps — a diary that says “delve,” a quoted “I am GPT-4o,” an academic paragraph
+            with “in conclusion” — must not receive a model. Short text abstains. The briefing is
+            not allowed to mint an exact name the local pass did not see, and a disagreement between
+            the two passes drops the checkpoint.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            That suite is a regression lock on this desk, not a field accuracy for every model in
+            the wild. Surface style cannot separate two checkpoints that were trained to sound
+            alike. We stop at the generation when that is the truth.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="font-display text-2xl italic tracking-tight text-fg">
+            What we will not claim
+          </h2>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-muted">
             <li>No 99.9. The cap is honest because the overlap is real.</li>
-            <li>A family name is the closest house style, not a watermark from the lab.</li>
+            <li>A generation is a style band, not a watermark from the lab.</li>
+            <li>
+              An exact model is a claim the text made about itself, checked against a quote and a
+              sticker.
+            </li>
             <li>Heavily edited drafts, style prompts, and formal essays will muddy the read.</li>
             <li>Short samples stay low-confidence on purpose.</li>
           </ul>
