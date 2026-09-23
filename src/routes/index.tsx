@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Eraser, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import { FamilyPanel } from "@/components/family-panel";
 import { AnnotatedText } from "@/components/annotated-text";
 import { analyzeText, type ForensicReport } from "@/lib/forensics";
 import { runDeepAnalysis } from "@/lib/analyze";
+import { briefingServerEnabled, isBriefingTransportError, localFullRead } from "@/lib/full-read";
 import { SAMPLES } from "@/lib/samples";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,7 @@ function Home() {
   const [committed, setCommitted] = useState<ForensicReport | null>(null);
   const [busy, setBusy] = useState(false);
   const [usedModel, setUsedModel] = useState<boolean | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const live = useMemo(() => (text.trim().length >= 8 ? analyzeText(text) : null), [text]);
 
@@ -30,6 +32,15 @@ function Home() {
 
   const wordCount = live?.wordCount ?? 0;
 
+  function revealResult() {
+    window.setTimeout(() => {
+      const node = resultRef.current;
+      if (!node) return;
+      if (window.matchMedia("(min-width: 1024px)").matches) return;
+      node.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  }
+
   async function analyze() {
     const trimmed = text.trim();
     if (trimmed.length < 24) {
@@ -37,8 +48,13 @@ function Home() {
       return;
     }
     setBusy(true);
-    setCommitted(analyzeText(trimmed));
+    const local = localFullRead(trimmed);
+    setCommitted(local.report);
     try {
+      if (!briefingServerEnabled()) {
+        setUsedModel(false);
+        return;
+      }
       const result = await runDeepAnalysis({ data: { text: trimmed } });
       if (result.ok) {
         setCommitted(result.report);
@@ -48,11 +64,14 @@ function Home() {
         setUsedModel(false);
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Analysis failed.";
-      toast(message);
       setUsedModel(false);
+      if (!isBriefingTransportError(err)) {
+        const message = err instanceof Error ? err.message : "Analysis failed.";
+        toast(message);
+      }
     } finally {
       setBusy(false);
+      revealResult();
     }
   }
 
@@ -171,7 +190,7 @@ function Home() {
             )}
           </div>
 
-          <div className="lg:col-span-5">
+          <div ref={resultRef} className="scroll-mt-6 lg:col-span-5">
             {report && (committed || wordCount >= 20) ? (
               <div className={cn("stagger-in space-y-4", busy && "opacity-80")}>
                 <VerdictCard report={report} />
