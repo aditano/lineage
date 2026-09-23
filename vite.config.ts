@@ -133,6 +133,11 @@ const pagesBase = process.env.PAGES_BASE || (pages ? "/lineage/" : "/");
 // AGENTS.md § "First scaffold".
 export default defineConfig(({ command }) => ({
   base: pages ? pagesBase : "/",
+  // Pages is a static SPA: posting the briefing server function 405s.
+  // The full read then finishes in the browser with the local forensic pass.
+  define: {
+    __LINEAGE_BRIEFING_SERVER__: JSON.stringify(!pages),
+  },
   server: {
     host: "0.0.0.0",
     port: 8080,
