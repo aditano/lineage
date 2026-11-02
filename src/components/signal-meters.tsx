@@ -26,10 +26,18 @@ export function SignalMeters({
               {s.machineEnd}
             </span>
           </div>
-          <div className="relative h-1 overflow-hidden rounded-full bg-surface-2">
+          <div
+            className="relative h-1 overflow-hidden rounded-full bg-surface-2"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(s.value * 100)}
+            aria-label={`${s.label}: ${s.humanEnd} / ${s.machineEnd}`}
+          >
             <div
               className="absolute inset-y-0 left-0 rounded-full bg-accent/80 transition-[width] duration-300 ease-out"
               style={{ width: `${Math.round(s.value * 100)}%` }}
+              aria-hidden="true"
             />
           </div>
           <p className="mt-1.5 text-xs leading-snug text-subtle">{s.note}</p>
