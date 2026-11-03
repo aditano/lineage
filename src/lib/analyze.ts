@@ -204,6 +204,11 @@ export const runDeepAnalysis = createServerFn({ method: "POST" })
       | { ok: true; report: ForensicReport; usedModel: boolean }
       | { ok: false; error: string; report: ForensicReport }
     > => {
+      // Public endpoint (no login required) — still rate-limit before spending
+      // the shared upstream key. Dynamic import keeps getRequest server-only.
+      const { assertBriefingRateLimit } = await import("./briefing-guard.server");
+      assertBriefingRateLimit();
+
       const local = analyzeText(data.text);
       const apiKey = process.env.XAI_API_KEY;
       if (!apiKey) {

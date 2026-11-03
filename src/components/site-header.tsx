@@ -23,7 +23,7 @@ export function SiteHeader({ className }: { className?: string }) {
         </span>
       </Link>
 
-      <nav className="flex items-center gap-1 sm:gap-2">
+      <nav aria-label="Primary" className="flex items-center gap-1 sm:gap-2">
         <Link
           to="/method"
           className="inline-flex h-11 items-center rounded-md px-3 text-sm text-muted no-underline transition-colors duration-150 hover:text-fg"
@@ -31,7 +31,10 @@ export function SiteHeader({ className }: { className?: string }) {
           Method
         </Link>
         {isPending ? (
-          <div className="h-8 w-20 animate-pulse rounded-md bg-surface-2" />
+          <div
+            className="h-8 w-20 animate-pulse rounded-md bg-surface-2"
+            aria-hidden="true"
+          />
         ) : (
           <>
             <SignedOut>

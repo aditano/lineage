@@ -133,7 +133,7 @@ function Home() {
                     }}
                     className="inline-flex h-8 items-center gap-1.5 text-xs text-subtle transition-colors hover:text-fg"
                   >
-                    <Eraser className="size-3.5" />
+                    <Eraser className="size-3.5" aria-hidden="true" />
                     Clear
                   </button>
                 ) : null}
@@ -144,9 +144,10 @@ function Home() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Paste the writing here. A paragraph is enough. A page is better."
                 spellCheck={false}
+                aria-busy={busy}
               />
               <div className="mt-4 flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-mono text-[11px] tabular-nums text-subtle">
+                <p className="font-mono text-[11px] tabular-nums text-subtle" aria-live="polite">
                   {wordCount} words
                   {live ? ` · ${live.sentenceCount} sentences` : ""}
                   {text.length >= 8000 ? " · truncated at 8k" : ""}
@@ -155,17 +156,18 @@ function Home() {
                   type="button"
                   onClick={() => void analyze()}
                   disabled={busy}
+                  aria-busy={busy}
                   className="w-full sm:w-auto"
                 >
                   {busy ? (
                     <>
-                      <LoaderCircle className="animate-spin" />
+                      <LoaderCircle className="animate-spin" aria-hidden="true" />
                       Reading
                     </>
                   ) : (
                     <>
                       Run full read
-                      <ArrowRight />
+                      <ArrowRight aria-hidden="true" />
                     </>
                   )}
                 </Button>
@@ -190,7 +192,12 @@ function Home() {
             )}
           </div>
 
-          <div ref={resultRef} className="scroll-mt-6 lg:col-span-5">
+          <div
+            ref={resultRef}
+            className="scroll-mt-6 lg:col-span-5"
+            aria-live="polite"
+            aria-busy={busy}
+          >
             {report && (committed || wordCount >= 20) ? (
               <div className={cn("stagger-in space-y-4", busy && "opacity-80")}>
                 <VerdictCard report={report} />

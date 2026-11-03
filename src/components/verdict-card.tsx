@@ -56,7 +56,14 @@ function ConfidenceRing({ value }: { value: number }) {
   const c = 2 * Math.PI * r;
   const dash = (value / 100) * c;
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div
+      className="flex flex-col items-center gap-1"
+      role="meter"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={value}
+      aria-label={`Confidence ${value} out of 100`}
+    >
       <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
         <circle
           cx="26"
@@ -80,7 +87,9 @@ function ConfidenceRing({ value }: { value: number }) {
           transform="rotate(-90 26 26)"
         />
       </svg>
-      <span className="font-mono text-[10px] tracking-wide text-subtle uppercase">conf.</span>
+      <span className="font-mono text-[10px] tracking-wide text-subtle uppercase" aria-hidden="true">
+        conf.
+      </span>
     </div>
   );
 }

@@ -8,7 +8,7 @@ function Login() {
   return (
     <main className="flex flex-1 items-center justify-center px-5 py-16">
       <div className="w-full max-w-sm">
-        <p className="font-display text-3xl italic tracking-tight text-fg">Sign in</p>
+        <h1 className="font-display text-3xl italic tracking-tight text-fg">Sign in</h1>
         <p className="mt-2 text-sm leading-relaxed text-muted">
           Optional. Lineage works without an account — sign in if you want a session on this
           desk.
